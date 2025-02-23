@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
@@ -22,11 +23,11 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllAccounts()
+        public async Task<IActionResult> GetAllAccounts()
         {
             try
             {
-                var accounts = _repository.Account.GetAllAccounts();
+                var accounts = await _repository.Account.GetAllAccountsAsync();
                 _logger.LogInfo("Returned all accounts from database.");
 
                 var accountsResults = _mapper.Map<IEnumerable<AccountDto>>(accounts);
@@ -41,11 +42,11 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpGet("{id}", Name = "AccountById")]
-        public IActionResult GetOneAccount([FromRoute] Guid id)
+        public async Task<IActionResult> GetOneAccount([FromRoute] Guid id)
         {
             try
             {
-                var account = _repository.Account.GetAccountById(id);
+                var account = await _repository.Account.GetAccountByIdAsync(id);
                 if (account is null)
                 {
                     _logger.LogError($"Account with id: {id}, hasn't been found in db.");
@@ -65,11 +66,11 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpGet("{id}/owner")]
-        public IActionResult GetAccountWithDetails([FromRoute] Guid id)
+        public async Task<IActionResult> GetAccountWithDetails([FromRoute] Guid id)
         {
             try
             {
-                var account = _repository.Account.GetAccountWithDetails(id);
+                var account = await _repository.Account.GetAccountWithDetailsAsync(id);
                 if (account is null)
                 {
                     _logger.LogError($"Account with id: {id}, hasn't been found in db.");
@@ -91,7 +92,7 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAccount([FromBody] AccountForCreationDto account)
+        public async Task<IActionResult> CreateAccount([FromBody] AccountForCreationDto account)
         {
             try
             {
@@ -110,7 +111,7 @@ namespace AccountOwnerServer.Controllers
                 var accountEntity = _mapper.Map<Account>(account);
 
                 _repository.Account.CreateAccount(accountEntity);
-                _repository.Save();
+                await _repository.SaveAsync();
 
                 var createAccount = _mapper.Map<AccountDto>(accountEntity);
                 return CreatedAtRoute("AccountById", new { id = createAccount.Id }, createAccount);
@@ -123,7 +124,7 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateAccount([FromRoute] Guid id, [FromBody] AccountForUpdateDto account)
+        public async Task<IActionResult> UpdateAccount([FromRoute] Guid id, [FromBody] AccountForUpdateDto account)
         {
             try
             {
@@ -138,7 +139,7 @@ namespace AccountOwnerServer.Controllers
                     return BadRequest("Invalid model object"); //400
                 }
 
-                var accountEntity = _repository.Account.GetAccountById(id);
+                var accountEntity = await _repository.Account.GetAccountByIdAsync(id);
                 if (accountEntity is null)
                 {
                     _logger.LogError($"Account with id: {id}, hasn't been found in db.");
@@ -148,7 +149,7 @@ namespace AccountOwnerServer.Controllers
                 _mapper.Map(account, accountEntity);
 
                 _repository.Account.UpdateAccount(accountEntity);
-                _repository.Save();
+                await _repository.SaveAsync();
 
                 return NoContent();//204
             }
@@ -160,11 +161,11 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteAccount([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteAccount([FromRoute] Guid id)
         {
             try
             {
-                var account = _repository.Account.GetAccountById(id);
+                var account = await _repository.Account.GetAccountByIdAsync(id);
                 if (account is null)
                 {
                     _logger.LogError($"Account with id: {id}, hasn't been found in db.");
@@ -172,7 +173,7 @@ namespace AccountOwnerServer.Controllers
                 }
 
                 _repository.Account.DeleteAccount(account);
-                _repository.Save();
+                await _repository.SaveAsync();
 
                 return NoContent();
             }

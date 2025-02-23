@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Contracts;
 using Entities;
 
@@ -34,9 +35,9 @@ namespace Repository
                 return _account;
             }
         }
-        public void Save()
+        public async Task SaveAsync()
         {
-            _repoContext.SaveChanges();
+            await _repoContext.SaveChangesAsync();
         }
     }
 }

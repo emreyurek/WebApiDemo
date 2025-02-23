@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
@@ -22,11 +23,11 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllOwners()
+        public async Task<IActionResult> GetAllOwners()
         {
             try
             {
-                var owners = _repository.Owner.GetAllOwners();
+                var owners = await _repository.Owner.GetAllOwnersAsync();
                 _logger.LogInfo("Returned all owners from database.");
 
                 var ownerResults = _mapper.Map<IEnumerable<OwnerDto>>(owners);
@@ -40,11 +41,11 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpGet("{id}", Name = "OwnerById")]
-        public IActionResult GetOwnerById([FromRoute] Guid id)
+        public async Task<IActionResult> GetOwnerById([FromRoute] Guid id)
         {
             try
             {
-                var owner = _repository.Owner.GetOwnerById(id);
+                var owner = await _repository.Owner.GetOwnerByIdAsync(id);
 
                 if (owner is null)
                 {
@@ -65,11 +66,11 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpGet("{id}/account")]
-        public IActionResult GetOwnerWithDetails(Guid id)
+        public async Task<IActionResult> GetOwnerWithDetails(Guid id)
         {
             try
             {
-                var owner = _repository.Owner.GetOwnerWithDetails(id);
+                var owner = await _repository.Owner.GetOwnerWithDetailsAsync(id);
                 if (owner is null)
                 {
                     _logger.LogError($"Owner with id: {id}, hasn't been found in db.");
@@ -91,7 +92,7 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOwner([FromBody] OwnerForCreationDto owner)
+        public async Task<IActionResult> CreateOwner([FromBody] OwnerForCreationDto owner)
         {
             try
             {
@@ -110,7 +111,7 @@ namespace AccountOwnerServer.Controllers
                 var ownerEntity = _mapper.Map<Owner>(owner);
 
                 _repository.Owner.CreateOwner(ownerEntity);
-                _repository.Save();
+                await _repository.SaveAsync();
 
                 var createOwner = _mapper.Map<OwnerDto>(ownerEntity);
 
@@ -124,7 +125,7 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateOwner([FromRoute] Guid id, [FromBody] OwnerForUpdateDto owner)
+        public async Task<IActionResult> UpdateOwner([FromRoute] Guid id, [FromBody] OwnerForUpdateDto owner)
         {
             try
             {
@@ -139,7 +140,7 @@ namespace AccountOwnerServer.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                var ownerEntity = _repository.Owner.GetOwnerById(id);
+                var ownerEntity = await _repository.Owner.GetOwnerByIdAsync(id);
                 if (ownerEntity is null)
                 {
                     _logger.LogError($"Owner with id: {id}, hasn't been found in db.");
@@ -149,7 +150,7 @@ namespace AccountOwnerServer.Controllers
                 _mapper.Map(owner, ownerEntity); //ownerEntity updated
 
                 _repository.Owner.UpdateOwner(ownerEntity);
-                _repository.Save();
+                await _repository.SaveAsync();
 
                 return NoContent(); //204
             }
@@ -161,17 +162,16 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteOwner([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteOwner([FromRoute] Guid id)
         {
             try
             {
-                var owner = _repository.Owner.GetOwnerById(id);
+                var owner = await _repository.Owner.GetOwnerByIdAsync(id);
                 if (owner is null)
                 {
                     _logger.LogError($"Owner with id: {id}, hasn't been found in db.");
                     return NotFound();
                 }
-
                 if (_repository.Account.AccountsByOwner(id).Any())
                 {
                     _logger.LogError($"Cannot delete owner with id: {id}. It has related accounts. Delete those accounts first");
@@ -179,7 +179,7 @@ namespace AccountOwnerServer.Controllers
                 }
 
                 _repository.Owner.DeleteOwner(owner);
-                _repository.Save();
+                await _repository.SaveAsync();
 
                 return NoContent();
             }

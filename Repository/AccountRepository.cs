@@ -26,22 +26,23 @@ namespace Repository
             Delete(account);
         }
 
-        public Account GetAccountById(Guid accountId)
+        public async Task<Account> GetAccountByIdAsync(Guid accountId)
         {
-            return FindByCondition(a => a.Id.Equals(accountId))
-                   .FirstOrDefault();
+            return await FindByCondition(a => a.Id.Equals(accountId))
+                   .FirstOrDefaultAsync();
         }
 
-        public Account GetAccountWithDetails(Guid accountId)
+        public async Task<Account> GetAccountWithDetailsAsync(Guid accountId)
         {
-            return FindByCondition(a => a.Id.Equals(accountId))
+            return await FindByCondition(a => a.Id.Equals(accountId))
                     .Include(o => o.Owner)
-                    .FirstOrDefault();
+                    .FirstOrDefaultAsync();
         }
 
-        public IEnumerable<Account> GetAllAccounts()
+        public async Task<IEnumerable<Account>> GetAllAccountsAsync()
         {
-            return FindAll();
+            return await FindAll()
+                        .ToListAsync();
         }
 
         public void UpdateAccount(Account account)
