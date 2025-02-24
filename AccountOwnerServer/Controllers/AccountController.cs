@@ -1,7 +1,7 @@
-using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
+using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,163 +25,103 @@ namespace AccountOwnerServer.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAccounts()
         {
-            try
-            {
-                var accounts = await _repository.Account.GetAllAccountsAsync();
-                _logger.LogInfo("Returned all accounts from database.");
+            var accounts = await _repository.Account.GetAllAccountsAsync();
+            _logger.LogInfo("Returned all accounts from database.");
 
-                var accountsResults = _mapper.Map<IEnumerable<AccountDto>>(accounts);
-                return Ok(accountsResults);
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong inside GetAllAccounts action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
+            var accountsResults = _mapper.Map<IEnumerable<AccountDto>>(accounts);
+            return Ok(accountsResults);
         }
 
         [HttpGet("{id}", Name = "AccountById")]
         public async Task<IActionResult> GetOneAccount([FromRoute] Guid id)
         {
-            try
+            var account = await _repository.Account.GetAccountByIdAsync(id);
+            if (account is null)
             {
-                var account = await _repository.Account.GetAccountByIdAsync(id);
-                if (account is null)
-                {
-                    _logger.LogError($"Account with id: {id}, hasn't been found in db.");
-                    return NotFound();
-                }
-
-                _logger.LogInfo($"Returned account with id:{id}");
-
-                var accountResult = _mapper.Map<AccountDto>(account);
-                return Ok(accountResult);
+                throw new EntityNotFoundException($"Account with id: {id}, hasn't been found in db.");
             }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong inside GetOneAccount action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
+
+            _logger.LogInfo($"Returned account with id:{id}");
+
+            var accountResult = _mapper.Map<AccountDto>(account);
+            return Ok(accountResult);
         }
 
         [HttpGet("{id}/owner")]
         public async Task<IActionResult> GetAccountWithDetails([FromRoute] Guid id)
         {
-            try
+            var account = await _repository.Account.GetAccountWithDetailsAsync(id);
+            if (account is null)
             {
-                var account = await _repository.Account.GetAccountWithDetailsAsync(id);
-                if (account is null)
-                {
-                    _logger.LogError($"Account with id: {id}, hasn't been found in db.");
-                    return NotFound();
-                }
-                else
-                {
-                    _logger.LogInfo($"Returned account with details for id: {id}");
+                throw new EntityNotFoundException($"Account with id: {id}, hasn't been found in db.");
+            }
+            _logger.LogInfo($"Returned account with details for id: {id}");
 
-                    var accountResult = _mapper.Map<AccountForDetailsDto>(account);
-                    return Ok(accountResult);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong inside GetOwnerWithDetails action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
+            var accountResult = _mapper.Map<AccountForDetailsDto>(account);
+            return Ok(accountResult);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateAccount([FromBody] AccountForCreationDto account)
         {
-            try
+            if (account is null)
             {
-                if (account is null)
-                {
-                    _logger.LogError("Account object sent from client is null.");
-                    return BadRequest("Account object is null"); //400
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    _logger.LogError("Invalid account object sent from client");
-                    return BadRequest("Invalid model object"); //400
-                }
-
-                var accountEntity = _mapper.Map<Account>(account);
-
-                _repository.Account.CreateAccount(accountEntity);
-                await _repository.SaveAsync();
-
-                var createAccount = _mapper.Map<AccountDto>(accountEntity);
-                return CreatedAtRoute("AccountById", new { id = createAccount.Id }, createAccount);
+                throw new BadRequestException("Account object is null");
             }
-            catch (Exception ex)
+
+            if (!ModelState.IsValid)
             {
-                _logger.LogError($"Something went wrong inside CreateAccount action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                throw new BadRequestException("Invalid model object");
             }
+
+            var accountEntity = _mapper.Map<Account>(account);
+
+            _repository.Account.CreateAccount(accountEntity);
+            await _repository.SaveAsync();
+
+            var createAccount = _mapper.Map<AccountDto>(accountEntity);
+            return CreatedAtRoute("AccountById", new { id = createAccount.Id }, createAccount);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAccount([FromRoute] Guid id, [FromBody] AccountForUpdateDto account)
         {
-            try
+            if (account is null)
             {
-                if (account is null)
-                {
-                    _logger.LogError("Account object sent from client is null.");
-                    return BadRequest("Account object is null"); //400
-                }
-                if (!ModelState.IsValid)
-                {
-                    _logger.LogError("Invalid account object sent from client");
-                    return BadRequest("Invalid model object"); //400
-                }
-
-                var accountEntity = await _repository.Account.GetAccountByIdAsync(id);
-                if (accountEntity is null)
-                {
-                    _logger.LogError($"Account with id: {id}, hasn't been found in db.");
-                    return NotFound();
-                }
-
-                _mapper.Map(account, accountEntity);
-
-                _repository.Account.UpdateAccount(accountEntity);
-                await _repository.SaveAsync();
-
-                return NoContent();//204
+                throw new BadRequestException("Account object is null");
             }
-            catch (Exception ex)
+            if (!ModelState.IsValid)
             {
-                _logger.LogError($"Something went wrong inside UpdateAccount action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                throw new BadRequestException("Invalid model object");
             }
+
+            var accountEntity = await _repository.Account.GetAccountByIdAsync(id);
+            if (accountEntity is null)
+            {
+                throw new EntityNotFoundException($"Account with id: {id}, hasn't been found in db.");
+            }
+
+            _mapper.Map(account, accountEntity);
+
+            _repository.Account.UpdateAccount(accountEntity);
+            await _repository.SaveAsync();
+
+            return NoContent();//204
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAccount([FromRoute] Guid id)
         {
-            try
+            var account = await _repository.Account.GetAccountByIdAsync(id);
+            if (account is null)
             {
-                var account = await _repository.Account.GetAccountByIdAsync(id);
-                if (account is null)
-                {
-                    _logger.LogError($"Account with id: {id}, hasn't been found in db.");
-                    return NotFound();
-                }
-
-                _repository.Account.DeleteAccount(account);
-                await _repository.SaveAsync();
-
-                return NoContent();
+                throw new EntityNotFoundException($"Account with id: {id}, hasn't been found in db.");
             }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong inside DeleteAccount action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
+
+            _repository.Account.DeleteAccount(account);
+            await _repository.SaveAsync();
+
+            return NoContent();
         }
 
     }

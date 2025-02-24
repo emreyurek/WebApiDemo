@@ -1,15 +1,32 @@
-2025-02-24 01:17:26.2435 INFO Returned all owners from database.
-2025-02-24 01:17:31.3407 INFO Returned all accounts from database.
-2025-02-24 01:17:37.1945 INFO Returned all owners from database.
-2025-02-24 01:17:39.7763 INFO Returned owner with id: 93f82805-a583-4895-7c0b-08dd52a417b0
-2025-02-24 01:17:54.7395 INFO Returned owner with details for id: bd798fa0-6b7c-46ee-b70e-08dd52a01813
-2025-02-24 01:18:02.4324 INFO Returned all accounts from database.
-2025-02-24 01:18:06.1931 ERROR Account with id: 5157662a-0375-4d11-6512-08dd540acdc3, hasn't been found in db.
-2025-02-24 01:18:11.3588 INFO Returned all accounts from database.
-2025-02-24 01:18:26.9347 INFO Returned account with id:ffac4bf7-7809-4a02-b834-08dd540b1483
-2025-02-24 01:18:38.2831 INFO Returned account with id:ffac4bf7-7809-4a02-b834-08dd540b1483
-2025-02-24 01:18:45.3889 INFO Returned all accounts from database.
-2025-02-24 01:19:01.2715 INFO Returned account with id:03e91478-5608-4132-a753-d494dafce00b
-2025-02-24 01:19:14.4217 INFO Returned account with id:a3fbad0b-7f48-4feb-8ac0-6d3bbc997bfc
-2025-02-24 01:20:43.1444 INFO Returned account with details for id: a3fbad0b-7f48-4feb-8ac0-6d3bbc997bfc
-2025-02-24 01:20:56.4874 INFO Returned all accounts from database.
+2025-02-24 18:27:30.9574 ERROR Something went wrong: Entities.Exceptions.EntityNotFoundException: Account with id: 4eb6b207-159b-4d10-9880-08dd54e770c7, hasn't been found in db.
+   at AccountOwnerServer.Controllers.AccountController.GetOneAccount(Guid id) in C:\Users\yurek\OneDrive\Masaüstü\CodeMaze\AccountOwnerServer\Controllers\AccountController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|8_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2025-02-24 18:28:01.0939 INFO Returned account with id:ffac4bf7-7809-4a02-b834-08dd540b1483
+2025-02-24 18:28:50.3761 INFO Returned all owners from database.
+2025-02-24 18:28:52.7826 INFO Returned owner with id: 93f82805-a583-4895-7c0b-08dd52a417b0
+2025-02-24 18:28:55.6329 INFO Returned owner with details for id: bd798fa0-6b7c-46ee-b70e-08dd52a01813
+2025-02-24 18:30:29.9918 ERROR Something went wrong: Entities.Exceptions.EntityNotFoundException: Owner with id: 1545ae0b-0a8e-4ae4-b90b-08dd54e7f5f4, hasn't been found in db.
+   at AccountOwnerServer.Controllers.OwnerController.GetOwnerById(Guid id) in C:\Users\yurek\OneDrive\Masaüstü\CodeMaze\AccountOwnerServer\Controllers\OwnerController.cs:line 43
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|8_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)

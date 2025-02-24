@@ -17,7 +17,7 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<string> Get()
+    public ActionResult<IEnumerable<string>> Get()
     {
         /* Logging
         // _logger.LogInfo("Here is info message from the controller.");
@@ -25,8 +25,19 @@ public class WeatherForecastController : ControllerBase
         // _logger.LogWarn("Here is warn message from the controller.");
         // _logger.LogError("Here is error message from the controller.");
         */
-        var domesticAccounts = _repository.Account.FindByCondition(x => x.AccountType.Equals("Domestic"));
-        var owners = _repository.Owner.FindAll();
-        return new[] { "value1", "value2" };
+
+        /* Repository
+        // var domesticAccounts = _repository.Account.FindByCondition(x => x.AccountType.Equals("Domestic"));
+        // var owners = _repository.Owner.FindAll();
+        // return new[] { "value1", "value2" };
+        */
+
+        /* Global error handling
+        //throw new ConflictException("Global error handling test");
+        */
+
+        return Ok();
     }
+
+
 }
