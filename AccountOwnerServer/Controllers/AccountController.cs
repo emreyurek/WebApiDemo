@@ -1,3 +1,4 @@
+using AccountOwnerServer.Filters;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
@@ -8,16 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace AccountOwnerServer.Controllers
 {
     [Route("api/account")]
+    [ServiceFilter(typeof(LogFilterAttribute))]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private ILoggerManager _logger;
         private IRepositoryWrapper _repository;
         private IMapper _mapper;
 
-        public AccountController(ILoggerManager logger, IRepositoryWrapper repository, IMapper mapper)
+        public AccountController(IRepositoryWrapper repository, IMapper mapper)
         {
-            _logger = logger;
             _repository = repository;
             _mapper = mapper;
         }
@@ -26,7 +26,6 @@ namespace AccountOwnerServer.Controllers
         public async Task<IActionResult> GetAllAccounts()
         {
             var accounts = await _repository.Account.GetAllAccountsAsync();
-            _logger.LogInfo("Returned all accounts from database.");
 
             var accountsResults = _mapper.Map<IEnumerable<AccountDto>>(accounts);
             return Ok(accountsResults);
@@ -41,8 +40,6 @@ namespace AccountOwnerServer.Controllers
                 throw new EntityNotFoundException($"Account with id: {id}, hasn't been found in db.");
             }
 
-            _logger.LogInfo($"Returned account with id:{id}");
-
             var accountResult = _mapper.Map<AccountDto>(account);
             return Ok(accountResult);
         }
@@ -55,25 +52,15 @@ namespace AccountOwnerServer.Controllers
             {
                 throw new EntityNotFoundException($"Account with id: {id}, hasn't been found in db.");
             }
-            _logger.LogInfo($"Returned account with details for id: {id}");
 
             var accountResult = _mapper.Map<AccountForDetailsDto>(account);
             return Ok(accountResult);
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateAccount([FromBody] AccountForCreationDto account)
         {
-            if (account is null)
-            {
-                throw new BadRequestException("Account object is null");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                throw new BadRequestException("Invalid model object");
-            }
-
             var accountEntity = _mapper.Map<Account>(account);
 
             _repository.Account.CreateAccount(accountEntity);
@@ -84,17 +71,9 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateAccount([FromRoute] Guid id, [FromBody] AccountForUpdateDto account)
         {
-            if (account is null)
-            {
-                throw new BadRequestException("Account object is null");
-            }
-            if (!ModelState.IsValid)
-            {
-                throw new BadRequestException("Invalid model object");
-            }
-
             var accountEntity = await _repository.Account.GetAccountByIdAsync(id);
             if (accountEntity is null)
             {

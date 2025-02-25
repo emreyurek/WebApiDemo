@@ -1,6 +1,7 @@
 using Contracts;
+using Entities.ErrorModel;
 using Entities.Exceptions;
-using Entities.Models;
+
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace AccountOwnerServer.Extensions

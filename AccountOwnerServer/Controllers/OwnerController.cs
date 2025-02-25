@@ -1,3 +1,4 @@
+using AccountOwnerServer.Filters;
 using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
@@ -8,17 +9,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace AccountOwnerServer.Controllers
 {
     [Route("api/owner")]
+    [ServiceFilter(typeof(LogFilterAttribute))]
     [ApiController]
     public class OwnerController : ControllerBase
     {
         private IRepositoryWrapper _repository;
-        private ILoggerManager _logger;
         private IMapper _mapper;
 
-        public OwnerController(IRepositoryWrapper repository, ILoggerManager logger, IMapper mapper)
+        public OwnerController(IRepositoryWrapper repository, IMapper mapper)
         {
             _repository = repository;
-            _logger = logger;
             _mapper = mapper;
         }
 
@@ -26,7 +26,6 @@ namespace AccountOwnerServer.Controllers
         public async Task<IActionResult> GetAllOwners()
         {
             var owners = await _repository.Owner.GetAllOwnersAsync();
-            _logger.LogInfo("Returned all owners from database.");
 
             var ownerResults = _mapper.Map<IEnumerable<OwnerDto>>(owners);
             return Ok(ownerResults);
@@ -36,13 +35,10 @@ namespace AccountOwnerServer.Controllers
         public async Task<IActionResult> GetOwnerById([FromRoute] Guid id)
         {
             var owner = await _repository.Owner.GetOwnerByIdAsync(id);
-
             if (owner is null)
             {
                 throw new EntityNotFoundException($"Owner with id: {id}, hasn't been found in db.");
             }
-
-            _logger.LogInfo($"Returned owner with id: {id}");
 
             var ownerResult = _mapper.Map<OwnerDto>(owner);
             return Ok(ownerResult);
@@ -51,58 +47,34 @@ namespace AccountOwnerServer.Controllers
         [HttpGet("{id}/account")]
         public async Task<IActionResult> GetOwnerWithDetails(Guid id)
         {
-
             var owner = await _repository.Owner.GetOwnerWithDetailsAsync(id);
             if (owner is null)
             {
                 throw new EntityNotFoundException($"Owner with id: {id}, hasn't been found in db.");
             }
-            _logger.LogInfo($"Returned owner with details for id: {id}");
 
             var ownerResult = _mapper.Map<OwnerDto>(owner); //nested mapping 
             return Ok(ownerResult);
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateOwner([FromBody] OwnerForCreationDto owner)
         {
-
-            if (owner is null)
-            {
-                throw new BadRequestException("Owner object is null.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                throw new BadRequestException("Invalid model object");
-            }
-
             var ownerEntity = _mapper.Map<Owner>(owner);
 
             _repository.Owner.CreateOwner(ownerEntity);
             await _repository.SaveAsync();
 
             var createOwner = _mapper.Map<OwnerDto>(ownerEntity);
-
             return CreatedAtRoute("OwnerById", new { id = createOwner.Id }, createOwner); //201
-
         }
 
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateOwner([FromRoute] Guid id, [FromBody] OwnerForUpdateDto owner)
         {
-            if (owner is null)
-            {
-                throw new BadRequestException("Owner object is null.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                throw new BadRequestException("Invalid model object");
-            }
-
             var ownerEntity = await _repository.Owner.GetOwnerByIdAsync(id);
-
             if (ownerEntity is null)
             {
                 throw new EntityNotFoundException($"Owner with id: {id}, hasn't been found in db.");

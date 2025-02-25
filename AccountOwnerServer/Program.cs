@@ -7,6 +7,8 @@ using NLog;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.ConfigureActionFilters();
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.ConfigureRepositoryWrapper();
