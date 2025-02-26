@@ -1,6 +1,7 @@
 using Contracts;
 using Entities;
 using Entities.Models;
+using Entities.RequestFeatures;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository
@@ -39,10 +40,9 @@ namespace Repository
                     .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Account>> GetAllAccountsAsync()
+        public async Task<PagedList<Account>> GetAllAccountsAsync(AccountParameters accountParameters)
         {
-            return await FindAll()
-                        .ToListAsync();
+            return await PagedList<Account>.ToPagedList(FindAll(), accountParameters.PageNumber, accountParameters.PageSize);
         }
 
         public void UpdateAccount(Account account)

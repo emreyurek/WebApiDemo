@@ -1,6 +1,7 @@
 using Contracts;
 using Entities;
 using Entities.Models;
+using Entities.RequestFeatures;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository
@@ -21,11 +22,9 @@ namespace Repository
             Delete(owner);
         }
 
-        public async Task<IEnumerable<Owner>> GetAllOwnersAsync()
+        public async Task<PagedList<Owner>> GetAllOwnersAsync(OwnerParameters ownerParameters)
         {
-            return await FindAll()
-            .OrderBy(ow => ow.Name)
-            .ToListAsync();
+            return await PagedList<Owner>.ToPagedList(FindAll(), ownerParameters.PageNumber, ownerParameters.PageSize);
         }
 
         public async Task<Owner> GetOwnerByIdAsync(Guid ownerId)

@@ -4,7 +4,9 @@ using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Exceptions;
 using Entities.Models;
+using Entities.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace AccountOwnerServer.Controllers
 {
@@ -23,9 +25,21 @@ namespace AccountOwnerServer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllOwners()
+        public async Task<IActionResult> GetAllOwners([FromQuery] OwnerParameters ownerParameters)
         {
-            var owners = await _repository.Owner.GetAllOwnersAsync();
+            var owners = await _repository.Owner.GetAllOwnersAsync(ownerParameters);
+
+            var metadata = new
+            {
+                owners.TotalCount,
+                owners.PageSize,
+                owners.CurrentPage,
+                owners.TotalPages,
+                owners.HasNext,
+                owners.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             var ownerResults = _mapper.Map<IEnumerable<OwnerDto>>(owners);
             return Ok(ownerResults);

@@ -1,10 +1,11 @@
 using Entities.Models;
+using Entities.RequestFeatures;
 
 namespace Contracts
 {
     public interface IOwnerRepository : IRepositoryBase<Owner>
     {
-        Task<IEnumerable<Owner>> GetAllOwnersAsync();
+        Task<PagedList<Owner>> GetAllOwnersAsync(OwnerParameters ownerParameters);
         Task<Owner> GetOwnerByIdAsync(Guid ownerId);
         Task<Owner> GetOwnerWithDetailsAsync(Guid ownerId);
         void CreateOwner(Owner owner);
