@@ -27,6 +27,12 @@ namespace AccountOwnerServer.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAccounts([FromQuery] AccountParameters accountParameters)
         {
+
+            if (!accountParameters.ValidYearRange)
+            {
+                return BadRequest("Max year of date created cannot be less than min year of date created");
+            }
+
             var accounts = await _repository.Account.GetAllAccountsAsync(accountParameters);
 
             var metadata = new

@@ -42,7 +42,10 @@ namespace Repository
 
         public async Task<PagedList<Account>> GetAllAccountsAsync(AccountParameters accountParameters)
         {
-            return await PagedList<Account>.ToPagedList(FindAll(), accountParameters.PageNumber, accountParameters.PageSize);
+            var accounts = FindByCondition(account => (account.DateCreated.Year >= accountParameters.MinDateCreated) &&
+                                                      (account.DateCreated.Year <= accountParameters.MaxDateCreated));
+
+            return await PagedList<Account>.ToPagedList(accounts, accountParameters.PageNumber, accountParameters.PageSize);
         }
 
         public void UpdateAccount(Account account)
