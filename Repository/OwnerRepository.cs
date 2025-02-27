@@ -25,12 +25,20 @@ namespace Repository
         public async Task<PagedList<Owner>> GetAllOwnersAsync(OwnerParameters ownerParameters)
         {
             var owners = FindByCondition(owner => (owner.DateOfBirth.Year >= ownerParameters.MinYearOfBirth) &&
-                                         (owner.DateOfBirth.Year <= ownerParameters.MaxYearOfBirth))
-                                         .OrderBy(owner => owner.Name);
+                                         (owner.DateOfBirth.Year <= ownerParameters.MaxYearOfBirth));
 
-            return await PagedList<Owner>.ToPagedList(owners, ownerParameters.PageNumber, ownerParameters.PageSize);
+            SearchByName(ref owners, ownerParameters.Name);
+
+            return await PagedList<Owner>.ToPagedList(owners.OrderBy(ow => ow.Name), ownerParameters.PageNumber, ownerParameters.PageSize);
         }
 
+        private void SearchByName(ref IQueryable<Owner> owners, string ownerName)
+        {
+            if (!owners.Any() || string.IsNullOrWhiteSpace(ownerName))
+                return;
+
+            owners = owners.Where(ow => ow.Name.ToLower().Contains(ownerName.Trim().ToLower()));
+        }
         public async Task<Owner> GetOwnerByIdAsync(Guid ownerId)
         {
             return await FindByCondition(owner => owner.Id.Equals(ownerId))
@@ -48,5 +56,6 @@ namespace Repository
         {
             Update(owner);
         }
+
     }
 }

@@ -45,7 +45,17 @@ namespace Repository
             var accounts = FindByCondition(account => (account.DateCreated.Year >= accountParameters.MinDateCreated) &&
                                                       (account.DateCreated.Year <= accountParameters.MaxDateCreated));
 
+            SearchByAccountType(ref accounts, accountParameters.AccountType);
+
             return await PagedList<Account>.ToPagedList(accounts, accountParameters.PageNumber, accountParameters.PageSize);
+        }
+
+        private void SearchByAccountType(ref IQueryable<Account> accounts, string accountType)
+        {
+            if (!accounts.Any() || string.IsNullOrWhiteSpace(accountType))
+                return;
+
+            accounts = accounts.Where(ac => ac.AccountType.ToLower().Contains(accountType.Trim().ToLower()));
         }
 
         public void UpdateAccount(Account account)
