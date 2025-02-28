@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "RbjV05KhFN5Hu2GuibYbOOnAMs08Calk46UpHip/8Tk6L6hzOXOsvjGDVWqvFGX8qRYwOvs5ovrTo/0j4iQFCw==",
+  "dgSpecHash": "jOB4sedXswCR+p6OSiepols5bxWB4Z+cVNPfYKYx7DEJy4wDY4MJJupUqV63VJr7nvSV4+Ru+O+67IGbP1PXGw==",
   "success": true,
   "projectFilePath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj",
   "expectedPackageFiles": [
@@ -56,6 +56,7 @@
     "C:\\Users\\yurek\\.nuget\\packages\\system.globalization\\4.3.0\\system.globalization.4.3.0.nupkg.sha512",
     "C:\\Users\\yurek\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.21.0\\system.identitymodel.tokens.jwt.6.21.0.nupkg.sha512",
     "C:\\Users\\yurek\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
+    "C:\\Users\\yurek\\.nuget\\packages\\system.linq.dynamic.core\\1.6.0.2\\system.linq.dynamic.core.1.6.0.2.nupkg.sha512",
     "C:\\Users\\yurek\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\yurek\\.nuget\\packages\\system.memory.data\\1.0.2\\system.memory.data.1.0.2.nupkg.sha512",
     "C:\\Users\\yurek\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",

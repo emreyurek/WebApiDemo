@@ -82,3 +82,4 @@ C:\Users\yurek\OneDrive\Masaüstü\CodeMaze\AccountOwnerServer\obj\Debug\net7.0\
 c:\Users\yurek\OneDrive\Masaüstü\CodeMaze\AccountOwnerServer\obj\Debug\net7.0\AccountOwnerServer.genruntimeconfig.cache
 c:\Users\yurek\OneDrive\Masaüstü\CodeMaze\AccountOwnerServer\obj\Debug\net7.0\ref\AccountOwnerServer.dll
 C:\Users\yurek\OneDrive\Masaüstü\CodeMaze\AccountOwnerServer\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\yurek\OneDrive\Masaüstü\CodeMaze\AccountOwnerServer\bin\Debug\net7.0\System.Linq.Dynamic.Core.dll

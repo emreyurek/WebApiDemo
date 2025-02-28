@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "GD1Jj/BcPjUuEyptGSs5/tVfNpCj7+QHOsF4ATHHWQcVyvWVrLUtQaX24RHLzO+g8mOcryV1jev5dLfZCfrKsw==",
+  "dgSpecHash": "AZLfPYUkfKDwznwP0Sq1oVTjWD2pRU2DKC2VoUHevBodSFBjLMgQiRYcE4romTM2H2gw7I6toZIHylQG4h5QIg==",
   "success": true,
   "projectFilePath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Repository\\Repository.csproj",
   "expectedPackageFiles": [
@@ -14,7 +14,8 @@
     "C:\\Users\\yurek\\.nuget\\packages\\microsoft.extensions.logging\\7.0.0\\microsoft.extensions.logging.7.0.0.nupkg.sha512",
     "C:\\Users\\yurek\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\yurek\\.nuget\\packages\\microsoft.extensions.options\\7.0.0\\microsoft.extensions.options.7.0.0.nupkg.sha512",
-    "C:\\Users\\yurek\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512"
+    "C:\\Users\\yurek\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "C:\\Users\\yurek\\.nuget\\packages\\system.linq.dynamic.core\\1.6.0.2\\system.linq.dynamic.core.1.6.0.2.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,5 +1,6 @@
 using Contracts;
 using Entities;
+using Entities.Helpers;
 using Entities.Models;
 using Entities.RequestFeatures;
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +9,10 @@ namespace Repository
 {
     public class OwnerRepository : RepositoryBase<Owner>, IOwnerRepository
     {
-        public OwnerRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+        private ISortHelper<Owner> _sortHelper;
+        public OwnerRepository(RepositoryContext repositoryContext, ISortHelper<Owner> sortHelper) : base(repositoryContext)
         {
+            _sortHelper = sortHelper;
         }
 
         public void CreateOwner(Owner owner)
@@ -29,7 +32,9 @@ namespace Repository
 
             SearchByName(ref owners, ownerParameters.Name);
 
-            return await PagedList<Owner>.ToPagedList(owners.OrderBy(ow => ow.Name), ownerParameters.PageNumber, ownerParameters.PageSize);
+            var sortedOwners = _sortHelper.ApplySort(owners, ownerParameters.OrderBy);
+
+            return await PagedList<Owner>.ToPagedList(sortedOwners, ownerParameters.PageNumber, ownerParameters.PageSize);
         }
 
         private void SearchByName(ref IQueryable<Owner> owners, string ownerName)
@@ -39,6 +44,7 @@ namespace Repository
 
             owners = owners.Where(ow => ow.Name.ToLower().Contains(ownerName.Trim().ToLower()));
         }
+
         public async Task<Owner> GetOwnerByIdAsync(Guid ownerId)
         {
             return await FindByCondition(owner => owner.Id.Equals(ownerId))

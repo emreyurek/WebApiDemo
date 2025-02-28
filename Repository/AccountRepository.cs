@@ -1,5 +1,6 @@
 using Contracts;
 using Entities;
+using Entities.Helpers;
 using Entities.Models;
 using Entities.RequestFeatures;
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +9,10 @@ namespace Repository
 {
     public class AccountRepository : RepositoryBase<Account>, IAccountRepository
     {
-        public AccountRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+        private ISortHelper<Account> __sortHelper;
+        public AccountRepository(RepositoryContext repositoryContext, ISortHelper<Account> sortHelper) : base(repositoryContext)
         {
+            __sortHelper = sortHelper;
         }
 
         public IEnumerable<Account> AccountsByOwner(Guid ownerId)
@@ -47,7 +50,9 @@ namespace Repository
 
             SearchByAccountType(ref accounts, accountParameters.AccountType);
 
-            return await PagedList<Account>.ToPagedList(accounts, accountParameters.PageNumber, accountParameters.PageSize);
+            var sortedAccounts = __sortHelper.ApplySort(accounts, accountParameters.OrderBy);
+
+            return await PagedList<Account>.ToPagedList(sortedAccounts, accountParameters.PageNumber, accountParameters.PageSize);
         }
 
         private void SearchByAccountType(ref IQueryable<Account> accounts, string accountType)

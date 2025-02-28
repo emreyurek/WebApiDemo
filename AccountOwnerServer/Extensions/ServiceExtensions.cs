@@ -1,6 +1,7 @@
 using AccountOwnerServer.Filters;
 using Contracts;
 using Entities;
+using Entities.Helpers;
 using LoggerService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +50,7 @@ namespace AccountOwnerServer.Extensions
         // RepositoryWrapper Configuration
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
+            services.AddScoped(typeof(ISortHelper<>), typeof(SortHelper<>));
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
