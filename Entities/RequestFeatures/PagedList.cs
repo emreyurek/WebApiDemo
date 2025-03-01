@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 
 namespace Entities.RequestFeatures
 {
@@ -22,13 +21,13 @@ namespace Entities.RequestFeatures
             AddRange(items);
         }
 
-        public static async Task<PagedList<T>> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
+        public static async Task<PagedList<T>> ToPagedList(IEnumerable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();
-            var items = await source
+            var items = await Task.Run(() => source
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
-            .ToListAsync();
+            .ToList());
 
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }

@@ -1,3 +1,4 @@
+using System.Dynamic;
 using Entities.Models;
 using Entities.RequestFeatures;
 
@@ -5,7 +6,7 @@ namespace Contracts
 {
     public interface IOwnerRepository : IRepositoryBase<Owner>
     {
-        Task<PagedList<Owner>> GetAllOwnersAsync(OwnerParameters ownerParameters);
+        Task<PagedList<ExpandoObject>> GetAllOwnersAsync(OwnerParameters ownerParameters);
         Task<Owner> GetOwnerByIdAsync(Guid ownerId);
         Task<Owner> GetOwnerWithDetailsAsync(Guid ownerId);
         void CreateOwner(Owner owner);

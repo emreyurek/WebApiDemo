@@ -46,18 +46,15 @@ namespace AccountOwnerServer.Controllers
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-            var ownerResults = _mapper.Map<IEnumerable<OwnerDto>>(owners);
-            return Ok(ownerResults);
+            // var ownerResults = _mapper.Map<IEnumerable<OwnerDto>>(owners);
+
+            return Ok(owners);
         }
 
         [HttpGet("{id}", Name = "OwnerById")]
         public async Task<IActionResult> GetOwnerById([FromRoute] Guid id)
         {
             var owner = await _repository.Owner.GetOwnerByIdAsync(id);
-            if (owner is null)
-            {
-                throw new EntityNotFoundException($"Owner with id: {id}, hasn't been found in db.");
-            }
 
             var ownerResult = _mapper.Map<OwnerDto>(owner);
             return Ok(ownerResult);

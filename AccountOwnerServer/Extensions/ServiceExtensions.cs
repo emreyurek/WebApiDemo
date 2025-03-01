@@ -51,6 +51,7 @@ namespace AccountOwnerServer.Extensions
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
             services.AddScoped(typeof(ISortHelper<>), typeof(SortHelper<>));
+            services.AddScoped(typeof(IDataShaper<>), typeof(DataShaper<>));
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 

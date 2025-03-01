@@ -47,18 +47,15 @@ namespace AccountOwnerServer.Controllers
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-            var accountsResults = _mapper.Map<IEnumerable<AccountDto>>(accounts);
-            return Ok(accountsResults);
+            // var accountsResults = _mapper.Map<IEnumerable<AccountDto>>(accounts);
+
+            return Ok(accounts);
         }
 
         [HttpGet("{id}", Name = "AccountById")]
-        public async Task<IActionResult> GetOneAccount([FromRoute] Guid id)
+        public async Task<IActionResult> GetAccountById([FromRoute] Guid id)
         {
             var account = await _repository.Account.GetAccountByIdAsync(id);
-            if (account is null)
-            {
-                throw new EntityNotFoundException($"Account with id: {id}, hasn't been found in db.");
-            }
 
             var accountResult = _mapper.Map<AccountDto>(account);
             return Ok(accountResult);

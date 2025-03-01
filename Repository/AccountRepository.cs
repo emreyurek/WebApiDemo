@@ -1,3 +1,4 @@
+using System.Dynamic;
 using Contracts;
 using Entities;
 using Entities.Helpers;
@@ -9,10 +10,12 @@ namespace Repository
 {
     public class AccountRepository : RepositoryBase<Account>, IAccountRepository
     {
-        private ISortHelper<Account> __sortHelper;
-        public AccountRepository(RepositoryContext repositoryContext, ISortHelper<Account> sortHelper) : base(repositoryContext)
+        private ISortHelper<Account> _sortHelper;
+        private IDataShaper<Account> _dataShaper;
+        public AccountRepository(RepositoryContext repositoryContext, ISortHelper<Account> sortHelper, IDataShaper<Account> dataShaper) : base(repositoryContext)
         {
-            __sortHelper = sortHelper;
+            _sortHelper = sortHelper;
+            _dataShaper = dataShaper;
         }
 
         public IEnumerable<Account> AccountsByOwner(Guid ownerId)
@@ -43,16 +46,18 @@ namespace Repository
                     .FirstOrDefaultAsync();
         }
 
-        public async Task<PagedList<Account>> GetAllAccountsAsync(AccountParameters accountParameters)
+        public async Task<PagedList<ExpandoObject>> GetAllAccountsAsync(AccountParameters accountParameters)
         {
             var accounts = FindByCondition(account => (account.DateCreated.Year >= accountParameters.MinDateCreated) &&
                                                       (account.DateCreated.Year <= accountParameters.MaxDateCreated));
 
             SearchByAccountType(ref accounts, accountParameters.AccountType);
 
-            var sortedAccounts = __sortHelper.ApplySort(accounts, accountParameters.OrderBy);
+            var sortedAccounts = _sortHelper.ApplySort(accounts, accountParameters.OrderBy);
 
-            return await PagedList<Account>.ToPagedList(sortedAccounts, accountParameters.PageNumber, accountParameters.PageSize);
+            var shapedAccounts = _dataShaper.ShapeData(sortedAccounts, accountParameters.Fields);
+
+            return await PagedList<ExpandoObject>.ToPagedList(shapedAccounts, accountParameters.PageNumber, accountParameters.PageSize);
         }
 
         private void SearchByAccountType(ref IQueryable<Account> accounts, string accountType)
@@ -67,5 +72,6 @@ namespace Repository
         {
             Update(account);
         }
+    
     }
 }

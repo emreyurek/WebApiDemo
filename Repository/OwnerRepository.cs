@@ -1,3 +1,4 @@
+using System.Dynamic;
 using Contracts;
 using Entities;
 using Entities.Helpers;
@@ -10,9 +11,14 @@ namespace Repository
     public class OwnerRepository : RepositoryBase<Owner>, IOwnerRepository
     {
         private ISortHelper<Owner> _sortHelper;
-        public OwnerRepository(RepositoryContext repositoryContext, ISortHelper<Owner> sortHelper) : base(repositoryContext)
+        private IDataShaper<Owner> _dataShaper;
+        public OwnerRepository(RepositoryContext repositoryContext,
+         ISortHelper<Owner> sortHelper,
+         IDataShaper<Owner> dataShaper)
+         : base(repositoryContext)
         {
             _sortHelper = sortHelper;
+            _dataShaper = dataShaper;
         }
 
         public void CreateOwner(Owner owner)
@@ -25,7 +31,7 @@ namespace Repository
             Delete(owner);
         }
 
-        public async Task<PagedList<Owner>> GetAllOwnersAsync(OwnerParameters ownerParameters)
+        public async Task<PagedList<ExpandoObject>> GetAllOwnersAsync(OwnerParameters ownerParameters)
         {
             var owners = FindByCondition(owner => (owner.DateOfBirth.Year >= ownerParameters.MinYearOfBirth) &&
                                          (owner.DateOfBirth.Year <= ownerParameters.MaxYearOfBirth));
@@ -34,7 +40,9 @@ namespace Repository
 
             var sortedOwners = _sortHelper.ApplySort(owners, ownerParameters.OrderBy);
 
-            return await PagedList<Owner>.ToPagedList(sortedOwners, ownerParameters.PageNumber, ownerParameters.PageSize);
+            var shapedOwmers = _dataShaper.ShapeData(sortedOwners, ownerParameters.Fields);
+
+            return await PagedList<ExpandoObject>.ToPagedList(shapedOwmers, ownerParameters.PageNumber, ownerParameters.PageSize);
         }
 
         private void SearchByName(ref IQueryable<Owner> owners, string ownerName)
