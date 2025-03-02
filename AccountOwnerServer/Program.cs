@@ -22,7 +22,13 @@ builder.Services.ConfigureCors();
 
 builder.Services.ConfigureIISIntegration();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(config =>
+{
+    config.RespectBrowserAcceptHeader = true;
+    config.ReturnHttpNotAcceptable = true;
+})
+.AddNewtonsoftJson()  // default - json format 
+.AddXmlDataContractSerializerFormatters();
 
 var app = builder.Build();
 
