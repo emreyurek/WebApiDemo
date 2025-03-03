@@ -1,4 +1,3 @@
-using System.Dynamic;
 using Contracts;
 using Entities;
 using Entities.Helpers;
@@ -46,7 +45,7 @@ namespace Repository
                     .FirstOrDefaultAsync();
         }
 
-        public async Task<PagedList<ExpandoObject>> GetAllAccountsAsync(AccountParameters accountParameters)
+        public async Task<PagedList<Entity>> GetAllAccountsAsync(AccountParameters accountParameters)
         {
             var accounts = FindByCondition(account => (account.DateCreated.Year >= accountParameters.MinDateCreated) &&
                                                       (account.DateCreated.Year <= accountParameters.MaxDateCreated));
@@ -57,7 +56,7 @@ namespace Repository
 
             var shapedAccounts = _dataShaper.ShapeData(sortedAccounts, accountParameters.Fields);
 
-            return await PagedList<ExpandoObject>.ToPagedList(shapedAccounts, accountParameters.PageNumber, accountParameters.PageSize);
+            return await PagedList<Entity>.ToPagedList(shapedAccounts, accountParameters.PageNumber, accountParameters.PageSize);
         }
 
         private void SearchByAccountType(ref IQueryable<Account> accounts, string accountType)
@@ -72,6 +71,6 @@ namespace Repository
         {
             Update(account);
         }
-    
+
     }
 }

@@ -1,4 +1,3 @@
-using System.Dynamic;
 using Entities.Models;
 using Entities.RequestFeatures;
 
@@ -7,7 +6,7 @@ namespace Contracts
     public interface IAccountRepository : IRepositoryBase<Account>
     {
         IEnumerable<Account> AccountsByOwner(Guid ownerId);
-        Task<PagedList<ExpandoObject>> GetAllAccountsAsync(AccountParameters accountParameters);
+        Task<PagedList<Entity>> GetAllAccountsAsync(AccountParameters accountParameters);
         Task<Account> GetAccountByIdAsync(Guid accountId);
         Task<Account> GetAccountWithDetailsAsync(Guid accountId);
         void CreateAccount(Account account);

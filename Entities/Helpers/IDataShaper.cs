@@ -1,10 +1,10 @@
-using System.Dynamic;
+using Entities.Models;
 
 namespace Entities.Helpers
 {
     public interface IDataShaper<T>
     {
-        IEnumerable<ExpandoObject> ShapeData(IEnumerable<T> entities, string fieldsString);
-        ExpandoObject ShapeData(T entity, string fieldsString);
+        IEnumerable<Entity> ShapeData(IEnumerable<T> entities, string fieldsString);
+        Entity ShapeData(T entity, string fieldsString);
     }
 }

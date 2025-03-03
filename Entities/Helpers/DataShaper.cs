@@ -1,5 +1,5 @@
-using System.Dynamic;
 using System.Reflection;
+using Entities.Models;
 
 namespace Entities.Helpers
 {
@@ -10,14 +10,14 @@ namespace Entities.Helpers
         {
             Properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
-        public IEnumerable<ExpandoObject> ShapeData(IEnumerable<T> entities, string fieldsString)
+        public IEnumerable<Entity> ShapeData(IEnumerable<T> entities, string fieldsString)
         {
             var requiredProperties = GetRequiredProperties(fieldsString);
 
             return FetchData(entities, requiredProperties);
         }
 
-        public ExpandoObject ShapeData(T entity, string fieldsString)
+        public Entity ShapeData(T entity, string fieldsString)
         {
             var requiredProperties = GetRequiredProperties(fieldsString);
 
@@ -49,9 +49,9 @@ namespace Entities.Helpers
             return requiredProperties;
         }
 
-        private IEnumerable<ExpandoObject> FetchData(IEnumerable<T> entities, IEnumerable<PropertyInfo> requiredProperties)
+        private IEnumerable<Entity> FetchData(IEnumerable<T> entities, IEnumerable<PropertyInfo> requiredProperties)
         {
-            var shapedData = new List<ExpandoObject>();
+            var shapedData = new List<Entity>();
 
             foreach (var entity in entities)
             {
@@ -62,9 +62,9 @@ namespace Entities.Helpers
             return shapedData;
         }
 
-        private ExpandoObject FetchDataForEntity(T entity, IEnumerable<PropertyInfo> requiredProperties)
+        private Entity FetchDataForEntity(T entity, IEnumerable<PropertyInfo> requiredProperties)
         {
-            var shapedData = new ExpandoObject();
+            var shapedData = new Entity();
 
             foreach (var property in requiredProperties)
             {
