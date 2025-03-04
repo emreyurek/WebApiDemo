@@ -30,7 +30,7 @@ namespace Repository
             Delete(owner);
         }
 
-        public async Task<PagedList<Entity>> GetAllOwnersAsync(OwnerParameters ownerParameters)
+        public async Task<PagedList<ShapedEntity>> GetAllOwnersAsync(OwnerParameters ownerParameters)
         {
             var owners = FindByCondition(owner => (owner.DateOfBirth.Year >= ownerParameters.MinYearOfBirth) &&
                                          (owner.DateOfBirth.Year <= ownerParameters.MaxYearOfBirth));
@@ -41,7 +41,7 @@ namespace Repository
 
             var shapedOwmers = _dataShaper.ShapeData(sortedOwners, ownerParameters.Fields);
 
-            return await PagedList<Entity>.ToPagedList(shapedOwmers, ownerParameters.PageNumber, ownerParameters.PageSize);
+            return await PagedList<ShapedEntity>.ToPagedList(shapedOwmers, ownerParameters.PageNumber, ownerParameters.PageSize);
         }
 
         private void SearchByName(ref IQueryable<Owner> owners, string ownerName)

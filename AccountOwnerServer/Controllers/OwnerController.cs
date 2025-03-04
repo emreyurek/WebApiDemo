@@ -3,6 +3,7 @@ using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Exceptions;
+using Entities.LinkModels;
 using Entities.Models;
 using Entities.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,13 @@ namespace AccountOwnerServer.Controllers
     {
         private IRepositoryWrapper _repository;
         private IMapper _mapper;
+        private LinkGenerator _linkGenerator;
 
-        public OwnerController(IRepositoryWrapper repository, IMapper mapper)
+        public OwnerController(IRepositoryWrapper repository, IMapper mapper, LinkGenerator linkGenerator)
         {
             _repository = repository;
             _mapper = mapper;
+            _linkGenerator = linkGenerator;
         }
 
         [HttpGet]
@@ -46,9 +49,15 @@ namespace AccountOwnerServer.Controllers
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-            // var ownerResults = _mapper.Map<IEnumerable<OwnerDto>>(owners);
+            var shapedOwners = owners.Select(o => o.Entity).ToList();
+            for (var index = 0; index < owners.Count(); index++)
+            {
+                var ownerLinks = CreateLinksForOwner(owners[index].Id, ownerParameters.Fields);
+                shapedOwners[index].Add("Links", ownerLinks);
+            }
 
-            return Ok(owners);
+            var ownersWrapper = new LinkCollectionWrapper<Entity>(shapedOwners);
+            return Ok(CreateLinksForOwners(ownersWrapper));
         }
 
         [HttpGet("{id}", Name = "OwnerById")]
@@ -121,6 +130,27 @@ namespace AccountOwnerServer.Controllers
             await _repository.SaveAsync();
 
             return NoContent();
+        }
+
+        private IEnumerable<Link> CreateLinksForOwner(Guid id, string fields = "")
+        {
+            var links = new List<Link>
+                        {
+                            new Link(_linkGenerator.GetUriByAction(HttpContext, nameof(GetOwnerById), values: new { id, fields }), "self", "GET"),
+
+                            new Link(_linkGenerator.GetUriByAction(HttpContext, nameof(DeleteOwner), values: new { id }), "delete_owner", "DELETE"),
+
+                            new Link(_linkGenerator.GetUriByAction(HttpContext, nameof(UpdateOwner), values: new { id }), "update_owner", "PUT")
+                        };
+
+            return links;
+        }
+
+        private LinkCollectionWrapper<Entity> CreateLinksForOwners(LinkCollectionWrapper<Entity> ownersWrapper)
+        {
+            ownersWrapper.Links.Add(new Link(_linkGenerator.GetUriByAction(HttpContext, nameof(GetAllOwners), values: new { }), "self", "GET"));
+
+            return ownersWrapper;
         }
     }
 }

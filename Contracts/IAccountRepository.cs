@@ -6,7 +6,7 @@ namespace Contracts
     public interface IAccountRepository : IRepositoryBase<Account>
     {
         IEnumerable<Account> AccountsByOwner(Guid ownerId);
-        Task<PagedList<Entity>> GetAllAccountsAsync(AccountParameters accountParameters);
+        Task<PagedList<ShapedEntity>> GetAllAccountsAsync(AccountParameters accountParameters);
         Task<Account> GetAccountByIdAsync(Guid accountId);
         Task<Account> GetAccountWithDetailsAsync(Guid accountId);
         void CreateAccount(Account account);

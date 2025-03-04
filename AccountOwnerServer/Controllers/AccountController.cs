@@ -3,6 +3,7 @@ using AutoMapper;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Exceptions;
+using Entities.LinkModels;
 using Entities.Models;
 using Entities.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,13 @@ namespace AccountOwnerServer.Controllers
         private IRepositoryWrapper _repository;
         private IMapper _mapper;
 
-        public AccountController(IRepositoryWrapper repository, IMapper mapper)
+        private LinkGenerator _linkGenerator;
+
+        public AccountController(IRepositoryWrapper repository, IMapper mapper, LinkGenerator linkGenerator)
         {
             _repository = repository;
             _mapper = mapper;
+            _linkGenerator = linkGenerator;
         }
 
         [HttpGet]
@@ -47,9 +51,15 @@ namespace AccountOwnerServer.Controllers
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-            // var accountsResults = _mapper.Map<IEnumerable<AccountDto>>(accounts);
+            var shapedAccounts = accounts.Select(o => o.Entity).ToList();
+            for (var index = 0; index < accounts.Count(); index++)
+            {
+                var accountLinks = CreateLinksForOwner(accounts[index].Id, accountParameters.Fields);
+                shapedAccounts[index].Add("Links", accountLinks);
+            }
 
-            return Ok(accounts);
+            var ownersWrapper = new LinkCollectionWrapper<Entity>(shapedAccounts);
+            return Ok(CreateLinksForOwners(ownersWrapper));
         }
 
         [HttpGet("{id}", Name = "AccountById")]
@@ -120,5 +130,25 @@ namespace AccountOwnerServer.Controllers
             return NoContent();
         }
 
+        private IEnumerable<Link> CreateLinksForOwner(Guid id, string fields = "")
+        {
+            var links = new List<Link>
+                        {
+                            new Link(_linkGenerator.GetUriByAction(HttpContext, nameof(GetAccountById), values: new { id, fields }), "self", "GET"),
+
+                            new Link(_linkGenerator.GetUriByAction(HttpContext, nameof(DeleteAccount), values: new { id }), "delete_account", "DELETE"),
+
+                            new Link(_linkGenerator.GetUriByAction(HttpContext, nameof(UpdateAccount), values: new { id }), "update_account", "PUT")
+                        };
+
+            return links;
+        }
+
+        private LinkCollectionWrapper<Entity> CreateLinksForOwners(LinkCollectionWrapper<Entity> accountsWrapper)
+        {
+            accountsWrapper.Links.Add(new Link(_linkGenerator.GetUriByAction(HttpContext, nameof(GetAllAccounts), values: new { }), "self", "GET"));
+
+            return accountsWrapper;
+        }
     }
 }

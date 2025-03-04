@@ -45,7 +45,7 @@ namespace Repository
                     .FirstOrDefaultAsync();
         }
 
-        public async Task<PagedList<Entity>> GetAllAccountsAsync(AccountParameters accountParameters)
+        public async Task<PagedList<ShapedEntity>> GetAllAccountsAsync(AccountParameters accountParameters)
         {
             var accounts = FindByCondition(account => (account.DateCreated.Year >= accountParameters.MinDateCreated) &&
                                                       (account.DateCreated.Year <= accountParameters.MaxDateCreated));
@@ -56,7 +56,7 @@ namespace Repository
 
             var shapedAccounts = _dataShaper.ShapeData(sortedAccounts, accountParameters.Fields);
 
-            return await PagedList<Entity>.ToPagedList(shapedAccounts, accountParameters.PageNumber, accountParameters.PageSize);
+            return await PagedList<ShapedEntity>.ToPagedList(shapedAccounts, accountParameters.PageNumber, accountParameters.PageSize);
         }
 
         private void SearchByAccountType(ref IQueryable<Account> accounts, string accountType)
