@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "r2LVcuggkJV6DtTu+AEpueEFfWU1HvFlpq2jXMgvr1DBpoP2B+B6FQOd2WtygA4K/6P3ZU8oYYdzVVK12YMOPQ==",
+  "dgSpecHash": "cbXhSqHES6XE6tZpvcilSA78A0QGqAWAUmo6/q1bcn287GCZHkedFXNfr30fYub+j6i2HOURSTq/B5Zpd0p30g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Entities\\Entities.csproj",
+  "projectFilePath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Entities\\Entities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yurek\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.0\\microsoft.entityframeworkcore.7.0.0.nupkg.sha512",
     "C:\\Users\\yurek\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.0\\microsoft.entityframeworkcore.abstractions.7.0.0.nupkg.sha512",

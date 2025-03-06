@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QJ3BeXPfkgGOuuPFtFQlffGBXUaKuxZl6X9L5PJDeZ4jenvqIj4TbClcalNnplMzH5XBJLH13+Rm2iJzNBN8rw==",
+  "dgSpecHash": "2imqt9Iv7eZoGB6aWOQdY3Mk4BGfzRdHGQQ7hb9a15zrKarvPm3ZHmz0+tSi6YN/EaUWRdb+vddbJwmcBuz/5A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj",
+  "projectFilePath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yurek\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\yurek\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",

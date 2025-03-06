@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IvRPM32df91ofd9FuUF4EGF0d+P35NCuzWPqI1hx6hLhYyOXPT6f6yfYLtpuFRkK9RfhRxxpUz3J+ktWJgVPLQ==",
+  "dgSpecHash": "WNe+AB/sL6TvrSXldrbRvphTRIulpqfq5/zflgA0K+ahtEsbIa2RY/X4jrxLU4PN0MdDDrJ63bdD792udJmEuw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\LoggerService\\LoggerService.csproj",
+  "projectFilePath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\LoggerService\\LoggerService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yurek\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.0\\microsoft.entityframeworkcore.7.0.0.nupkg.sha512",
     "C:\\Users\\yurek\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.0\\microsoft.entityframeworkcore.abstractions.7.0.0.nupkg.sha512",

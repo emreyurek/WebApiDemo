@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj": {}
+    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj": {
+    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj",
+        "projectUniqueName": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj",
         "projectName": "AccountOwnerServer",
-        "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj",
+        "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\AccountOwnerServer\\AccountOwnerServer.csproj",
         "packagesPath": "C:\\Users\\yurek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\AccountOwnerServer\\obj\\",
+        "outputPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\AccountOwnerServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,11 +32,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\LoggerService\\LoggerService.csproj": {
-                "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\LoggerService\\LoggerService.csproj"
+              "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\LoggerService\\LoggerService.csproj": {
+                "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\LoggerService\\LoggerService.csproj"
               },
-              "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Repository\\Repository.csproj": {
-                "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Repository\\Repository.csproj"
+              "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Repository\\Repository.csproj"
               }
             }
           }
@@ -103,14 +103,14 @@
         }
       }
     },
-    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Contracts\\Contracts.csproj": {
+    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Contracts\\Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Contracts\\Contracts.csproj",
+        "projectUniqueName": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Contracts\\Contracts.csproj",
         "projectName": "Contracts",
-        "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Contracts\\Contracts.csproj",
+        "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Contracts\\Contracts.csproj",
         "packagesPath": "C:\\Users\\yurek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Contracts\\obj\\",
+        "outputPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Contracts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -131,8 +131,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Entities\\Entities.csproj": {
-                "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Entities\\Entities.csproj"
+              "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Entities\\Entities.csproj"
               }
             }
           }
@@ -166,14 +166,14 @@
         }
       }
     },
-    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Entities\\Entities.csproj": {
+    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Entities\\Entities.csproj",
+        "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Entities\\Entities.csproj",
         "packagesPath": "C:\\Users\\yurek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Entities\\obj\\",
+        "outputPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -235,14 +235,14 @@
         }
       }
     },
-    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\LoggerService\\LoggerService.csproj": {
+    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\LoggerService\\LoggerService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\LoggerService\\LoggerService.csproj",
+        "projectUniqueName": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\LoggerService\\LoggerService.csproj",
         "projectName": "LoggerService",
-        "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\LoggerService\\LoggerService.csproj",
+        "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\LoggerService\\LoggerService.csproj",
         "packagesPath": "C:\\Users\\yurek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\LoggerService\\obj\\",
+        "outputPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\LoggerService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -263,8 +263,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Contracts\\Contracts.csproj": {
-                "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Contracts\\Contracts.csproj"
+              "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Contracts\\Contracts.csproj": {
+                "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Contracts\\Contracts.csproj"
               }
             }
           }
@@ -304,14 +304,14 @@
         }
       }
     },
-    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Repository\\Repository.csproj": {
+    "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Repository\\Repository.csproj",
+        "projectUniqueName": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Repository\\Repository.csproj",
+        "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Repository\\Repository.csproj",
         "packagesPath": "C:\\Users\\yurek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Repository\\obj\\",
+        "outputPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -332,8 +332,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Contracts\\Contracts.csproj": {
-                "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\CodeMaze\\Contracts\\Contracts.csproj"
+              "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Contracts\\Contracts.csproj": {
+                "projectPath": "C:\\Users\\yurek\\OneDrive\\Masaüstü\\webapi\\CodeMaze\\Contracts\\Contracts.csproj"
               }
             }
           }
